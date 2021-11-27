@@ -9,8 +9,10 @@ public class PlayerInput : MonoBehaviour
 {
     public Tilemap itemTilemap;
     public Tilemap indicatorTilemap;
-    public Text scoreDisplay;
     public RecipeList recipeList;
+
+    public Text scoreDisplay;
+    public Text hintDisplay;
 
     public TileBase selectionIndicator;
 
@@ -87,10 +89,12 @@ public class PlayerInput : MonoBehaviour
             {
                 score += recipe.value;
                 recipeList.GetEntryFor(recipe).SetActive(true);
+                hintDisplay.transform.parent.gameObject.SetActive(false);
             }
             else
             {
-                Debug.Log(GetHint(ingredients.Values.ToList()));
+                hintDisplay.transform.parent.gameObject.SetActive(true);
+                hintDisplay.text = GetHint(ingredients.Values.ToList());
             }
             indicatorTilemap.ClearAllTiles();
             selectedCells.Clear();
