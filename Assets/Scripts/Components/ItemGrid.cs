@@ -7,13 +7,21 @@ public class ItemGrid : MonoBehaviour
 {
     public Vector2Int size;
 
-    private List<TileBase> itemTiles = new List<TileBase>();
+    private List<Item> items = new List<Item>();
+    private List<Item> weightedItems = new List<Item>();
     private Tilemap tilemap;
 
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
-        itemTiles = new List<TileBase>(Resources.LoadAll<TileBase>("Items"));
+        items = new List<Item>(Resources.LoadAll<Item>("Items"));
+        foreach (Item item in items)
+        {
+            for (int i = 0; i < item.weight; i++)
+            {
+                weightedItems.Add(item);
+            }
+        }
         PopulateItems();
     }
 
@@ -23,8 +31,8 @@ public class ItemGrid : MonoBehaviour
         {
             for (int y = 0; y < size.y; y++)
             {
-                int tileIndex = Random.Range(0, itemTiles.Count);
-                tilemap.SetTile(new Vector3Int(x, y, 0), itemTiles[tileIndex]);
+                int tileIndex = Random.Range(0, weightedItems.Count);
+                tilemap.SetTile(new Vector3Int(x, y, 0), weightedItems[tileIndex]);
             }
         }
     }
