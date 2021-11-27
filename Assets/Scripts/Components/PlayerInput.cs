@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -87,9 +88,63 @@ public class PlayerInput : MonoBehaviour
                 score += recipe.value;
                 recipeList.GetEntryFor(recipe).SetActive(true);
             }
+            else
+            {
+                Debug.Log(GetHint(ingredients.Values.ToList()));
+            }
             indicatorTilemap.ClearAllTiles();
             selectedCells.Clear();
         }
+    }
+
+    private string GetHint(List<Recipe.Ingredient> ingredients)
+    {
+        Dictionary<int, List<Recipe>> diffs = new Dictionary<int, List<Recipe>>();
+        foreach (Recipe recipe in recipes)
+        {
+            int diff = 0;
+            foreach (Recipe.Ingredient recipeIngredient in recipe.ingredients)
+            {
+                if (!ingredients.Exists(ingredient => ingredient.item == recipeIngredient.item))
+                {
+                    diff += 1;
+                }
+            }
+            if (!diffs.ContainsKey(diff))
+            {
+                diffs.Add(diff, new List<Recipe>());
+            }
+            diffs[diff].Add(recipe);
+        }
+
+        if (diffs.ContainsKey(0))
+        {
+            foreach (Recipe.Ingredient ingredient in ingredients)
+            {
+                Recipe.Ingredient recipeIngredient = diffs[0][0].ingredients.Find(r => r.item == ingredient.item);
+                if (ingredient.quantity > recipeIngredient.quantity)
+                {
+                    return $"Too much {ingredient.item.displayName}";
+                }
+                else if (ingredient.quantity < recipeIngredient.quantity)
+                {
+                    return $"Not enough {ingredient.item.displayName}";
+                }
+            }
+        }
+        else
+        {
+            int smallestDiff = diffs.Keys.Min();
+            Recipe nearestRecipe = diffs[smallestDiff][0];
+            foreach (Recipe.Ingredient recipeIngredient in nearestRecipe.ingredients)
+            {
+                if (!ingredients.Exists(ingredient => ingredient.item == recipeIngredient.item))
+                {
+                    return $"Try adding {recipeIngredient.item.displayName}";
+                }
+            }
+        }
+        return "No available hints";
     }
 
     private void FixedUpdate()
