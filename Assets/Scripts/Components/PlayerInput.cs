@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     public Tilemap itemTilemap;
     public Tilemap indicatorTilemap;
     public Text scoreDisplay;
+    public RecipeList recipeList;
 
     public TileBase selectionIndicator;
 
@@ -52,7 +53,7 @@ public class PlayerInput : MonoBehaviour
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int mouseCell = itemTilemap.WorldToCell(mousePos);
 
-            if (itemTilemap.GetTile(mouseCell) != null)
+            if (itemTilemap.GetTile(mouseCell) != null && !selectedCells.Contains(mouseCell))
             {
                 TileBase indicatorAtPosition = indicatorTilemap.GetTile(mouseCell);
                 if (selectedCells.Count == 0 || selectedCells.Exists(cell => IsAdjacent(cell, mouseCell)))
@@ -84,6 +85,7 @@ public class PlayerInput : MonoBehaviour
             if (recipe != null)
             {
                 score += recipe.value;
+                recipeList.GetEntryFor(recipe).SetActive(true);
             }
             indicatorTilemap.ClearAllTiles();
             selectedCells.Clear();

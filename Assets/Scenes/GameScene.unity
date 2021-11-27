@@ -798,6 +798,7 @@ MonoBehaviour:
   itemTilemap: {fileID: 1692432488}
   indicatorTilemap: {fileID: 113851438}
   scoreDisplay: {fileID: 181111698}
+  recipeList: {fileID: 2107950606}
   selectionIndicator: {fileID: 11400000, guid: 1b6b5b9db02eacf4bacc3e74c65bcfb8, type: 2}
   score: 0
 --- !u!1 &1692432485

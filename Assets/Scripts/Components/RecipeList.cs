@@ -1,11 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RecipeList : MonoBehaviour
 {
     public GameObject prefab;
     public int spacing;
+
+    public GameObject GetEntryFor(Recipe recipe)
+    {
+        if (recipeListEntries.ContainsKey(recipe))
+        {
+            return recipeListEntries[recipe];
+        }
+        return null;
+    }
+
+    private Dictionary<Recipe, GameObject> recipeListEntries = new Dictionary<Recipe, GameObject>();
 
     private void Start()
     {
@@ -16,6 +26,8 @@ public class RecipeList : MonoBehaviour
             GameObject go = Instantiate(prefab, transform);
             go.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, y, spacing);
             go.GetComponent<RecipeDisplay>().recipe = recipe;
+            recipeListEntries.Add(recipe, go);
+            go.SetActive(false);
             y += spacing;
         }
     }
