@@ -11,6 +11,6 @@ public class RecipeDisplay : MonoBehaviour
     private void Start()
     {
         nameElement.text = recipe.displayName;
-        ingredientElement.text = string.Join(", ", recipe.ingredients.Select(i => $"{i.quantity}x {i.item.name}"));
+        ingredientElement.text = string.Join(", ", recipe.ingredients.Select(i => $"{i.quantity}x {i.item.displayName}"));
     }
 }

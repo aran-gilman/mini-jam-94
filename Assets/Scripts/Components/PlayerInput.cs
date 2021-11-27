@@ -68,7 +68,7 @@ public class PlayerInput : MonoBehaviour
             Dictionary<TileBase, Recipe.Ingredient> ingredients = new Dictionary<TileBase, Recipe.Ingredient>();
             foreach (Vector3Int cell in selectedCells)
             {
-                TileBase tile = itemTilemap.GetTile(cell);
+                Item tile = itemTilemap.GetTile(cell) as Item;
                 if (!ingredients.ContainsKey(tile))
                 {
                     ingredients.Add(tile, new Recipe.Ingredient

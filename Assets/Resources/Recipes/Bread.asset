@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Bread
   value: 5
   ingredients:
-  - item: {fileID: 11400000, guid: a047e50d1fb3606458bc5497bf22698a, type: 2}
+  - item: {fileID: 11400000, guid: 7c33b4b6785ff6248a9c5a0347916a1e, type: 2}
     quantity: 2
-  - item: {fileID: 11400000, guid: a72f1df9d46ec5249b8c27fbb07094f3, type: 2}
+  - item: {fileID: 11400000, guid: c5a7be07247793c45abfcdd0761a20e6, type: 2}
     quantity: 1

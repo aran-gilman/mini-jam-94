@@ -6,13 +6,14 @@ using UnityEngine.Tilemaps;
 public class ItemGrid : MonoBehaviour
 {
     public Vector2Int size;
-    public List<TileBase> itemTiles = new List<TileBase>();
 
+    private List<TileBase> itemTiles = new List<TileBase>();
     private Tilemap tilemap;
 
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
+        itemTiles = new List<TileBase>(Resources.LoadAll<TileBase>("Items"));
         PopulateItems();
     }
 

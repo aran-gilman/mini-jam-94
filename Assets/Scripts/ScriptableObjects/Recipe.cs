@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 [CreateAssetMenu]
 public class Recipe : ScriptableObject
@@ -12,7 +11,7 @@ public class Recipe : ScriptableObject
     [Serializable]
     public class Ingredient
     {
-        public TileBase item;
+        public Item item;
         public int quantity;
     }
     public List<Ingredient> ingredients = new List<Ingredient>();
