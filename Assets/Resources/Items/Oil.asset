@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509499e9f9ff9494cafb92a97f6225d9, type: 3}
   m_Name: Oil
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Oil
   weight: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 6c5c09b57fdc3c64d8d7bbb6fd067de9, type: 3}
