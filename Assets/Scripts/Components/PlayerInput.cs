@@ -11,6 +11,9 @@ public class PlayerInput : MonoBehaviour
     public Tilemap indicatorTilemap;
     public RecipeList recipeList;
 
+    public GameObject lastRecipeDisplay;
+    public GameObject ingredientImagePrefab;
+
     public Text scoreDisplay;
     public Text hintDisplay;
 
@@ -69,6 +72,11 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Bake"))
         {
+            for (int i = 0; i < lastRecipeDisplay.transform.childCount; i++)
+            {
+                Destroy(lastRecipeDisplay.transform.GetChild(i).gameObject);
+            }
+
             Dictionary<TileBase, Recipe.Ingredient> ingredients = new Dictionary<TileBase, Recipe.Ingredient>();
             foreach (Vector3Int cell in selectedCells)
             {
@@ -83,7 +91,11 @@ public class PlayerInput : MonoBehaviour
                 }
                 ingredients[tile].quantity += 1;
                 itemTilemap.SetTile(cell, null);
+
+                GameObject go = Instantiate(ingredientImagePrefab, lastRecipeDisplay.transform);
+                go.GetComponent<Image>().sprite = tile.sprite;
             }
+
             Recipe recipe = FindMatchingRecipe(ingredients.Values.ToList());
             if (recipe != null)
             {
