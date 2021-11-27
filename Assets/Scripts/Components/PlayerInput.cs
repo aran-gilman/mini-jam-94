@@ -2,11 +2,13 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class PlayerInput : MonoBehaviour
 {
     public Tilemap itemTilemap;
     public Tilemap indicatorTilemap;
+    public Text scoreDisplay;
 
     public TileBase selectionIndicator;
 
@@ -81,15 +83,15 @@ public class PlayerInput : MonoBehaviour
             Recipe recipe = FindMatchingRecipe(ingredients.Values.ToList());
             if (recipe != null)
             {
-                Debug.Log("Baked recipe: " + recipe.displayName);
                 score += recipe.value;
-            }
-            else
-            {
-                Debug.Log("Invalid recipe");
             }
             indicatorTilemap.ClearAllTiles();
             selectedCells.Clear();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        scoreDisplay.text = $"${score}";
     }
 }
