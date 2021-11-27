@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,7 +10,38 @@ public class PlayerInput : MonoBehaviour
 
     public TileBase selectionIndicator;
 
+    public int score;
+
     private List<Vector3Int> selectedCells = new List<Vector3Int>();
+    private List<Recipe> recipes = new List<Recipe>();
+
+    private bool IsAdjacent(Vector3Int a, Vector3Int b)
+    {
+        int xDiff = Mathf.Abs(a.x - b.x);
+        int yDiff = Mathf.Abs(a.y - b.y);
+        return xDiff <= 1 && yDiff <= 1 && (xDiff == 0 || yDiff == 0);
+    }
+
+    private void Start()
+    {
+        recipes = new List<Recipe>(Resources.LoadAll<Recipe>("Recipes"));
+    }
+
+    public Recipe FindMatchingRecipe(List<Recipe.Ingredient> ingredients)
+    {
+        foreach (Recipe recipe in recipes)
+        {
+            if (recipe.ingredients.Count != ingredients.Count)
+            {
+                continue;
+            }
+            if (recipe.ingredients.All(a => ingredients.Exists(b => a.item == b.item && a.quantity == b.quantity)))
+            {
+                return recipe;
+            }
+        }
+        return null;
+    }
 
     private void Update()
     {
@@ -18,42 +50,45 @@ public class PlayerInput : MonoBehaviour
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int mouseCell = itemTilemap.WorldToCell(mousePos);
 
-            TileBase indicatorAtPosition = indicatorTilemap.GetTile(mouseCell);
-            if (indicatorAtPosition == selectionIndicator)
+            if (itemTilemap.GetTile(mouseCell) != null)
             {
-                indicatorTilemap.SetTile(mouseCell, null);
-                selectedCells.Remove(mouseCell);
-            }
-            else
-            {
-                if (selectedCells.Count == 0)
+                TileBase indicatorAtPosition = indicatorTilemap.GetTile(mouseCell);
+                if (selectedCells.Count == 0 || selectedCells.Exists(cell => IsAdjacent(cell, mouseCell)))
                 {
                     indicatorTilemap.SetTile(mouseCell, selectionIndicator);
                     selectedCells.Add(mouseCell);
                 }
-                else
-                {
-                    bool isValid = false;
-                    foreach (Vector3Int cell in selectedCells)
-                    {
-                        int xDiff = Mathf.Abs(cell.x - mouseCell.x);
-                        int yDiff = Mathf.Abs(cell.y - mouseCell.y);
-
-                        if (xDiff <= 1 && yDiff <= 1 && (xDiff == 0 ^ yDiff == 0))
-                        {
-                            isValid = true;
-                            break;
-                        }
-
-                    }
-
-                    if (isValid)
-                    {
-                        indicatorTilemap.SetTile(mouseCell, selectionIndicator);
-                        selectedCells.Add(mouseCell);
-                    }
-                }
             }
+        }
+
+        if (Input.GetButtonDown("Bake"))
+        {
+            Dictionary<TileBase, Recipe.Ingredient> ingredients = new Dictionary<TileBase, Recipe.Ingredient>();
+            foreach (Vector3Int cell in selectedCells)
+            {
+                TileBase tile = itemTilemap.GetTile(cell);
+                if (!ingredients.ContainsKey(tile))
+                {
+                    ingredients.Add(tile, new Recipe.Ingredient
+                    {
+                        item = tile,
+                        quantity = 0
+                    });
+                }
+                ingredients[tile].quantity += 1;
+            }
+            Recipe recipe = FindMatchingRecipe(ingredients.Values.ToList());
+            if (recipe != null)
+            {
+                Debug.Log("Baked recipe: " + recipe.displayName);
+                score += recipe.value;
+            }
+            else
+            {
+                Debug.Log("Invalid recipe");
+            }
+            indicatorTilemap.ClearAllTiles();
+            selectedCells.Clear();
         }
     }
 }
