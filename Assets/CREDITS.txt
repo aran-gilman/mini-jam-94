@@ -7,3 +7,8 @@ File: Music/Caketown 1.mp3
 Author: Matthew Pablo
 License: CCY-BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/)
 Link: https://opengameart.org/content/caketown-cuteplayful
+
+File: Sfx/*.ogg
+Author: Kenney Vleugels (www.kenney.nl)
+License: Public Domain
+Link: https://opengameart.org/content/interface-sounds

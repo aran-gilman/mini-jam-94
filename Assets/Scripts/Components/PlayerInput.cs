@@ -19,10 +19,16 @@ public class PlayerInput : MonoBehaviour
 
     public TileBase selectionIndicator;
 
+    public AudioClip recipeSuccessSfx;
+    public AudioClip recipeFailSfx;
+
     public int score;
 
     private List<Vector3Int> selectedCells = new List<Vector3Int>();
     private List<Recipe> recipes = new List<Recipe>();
+
+    private RandomizeSfx selectSfx;
+    private AudioSource audioSource;
 
     private bool IsAdjacent(Vector3Int a, Vector3Int b)
     {
@@ -34,6 +40,8 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         recipes = new List<Recipe>(Resources.LoadAll<Recipe>("Recipes"));
+        selectSfx = GetComponent<RandomizeSfx>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public Recipe FindMatchingRecipe(List<Recipe.Ingredient> ingredients)
@@ -66,6 +74,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     indicatorTilemap.SetTile(mouseCell, selectionIndicator);
                     selectedCells.Add(mouseCell);
+                    selectSfx.Play();
                 }
             }
         }
@@ -102,11 +111,13 @@ public class PlayerInput : MonoBehaviour
                 score += recipe.value;
                 recipeList.GetEntryFor(recipe).SetActive(true);
                 hintDisplay.transform.parent.gameObject.SetActive(false);
+                audioSource.PlayOneShot(recipeSuccessSfx);
             }
             else
             {
                 hintDisplay.transform.parent.gameObject.SetActive(true);
                 hintDisplay.text = GetHint(ingredients.Values.ToList());
+                audioSource.PlayOneShot(recipeFailSfx);
             }
             indicatorTilemap.ClearAllTiles();
             selectedCells.Clear();
@@ -138,6 +149,10 @@ public class PlayerInput : MonoBehaviour
             foreach (Recipe.Ingredient ingredient in ingredients)
             {
                 Recipe.Ingredient recipeIngredient = diffs[0][0].ingredients.Find(r => r.item == ingredient.item);
+                if (recipeIngredient == null)
+                {
+                    return $"Try removing {ingredient.item.displayName}";
+                }
                 if (ingredient.quantity > recipeIngredient.quantity)
                 {
                     return $"Too much {ingredient.item.displayName}";
