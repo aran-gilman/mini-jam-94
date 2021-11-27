@@ -76,6 +76,7 @@ public class PlayerInput : MonoBehaviour
                     });
                 }
                 ingredients[tile].quantity += 1;
+                itemTilemap.SetTile(cell, null);
             }
             Recipe recipe = FindMatchingRecipe(ingredients.Values.ToList());
             if (recipe != null)
