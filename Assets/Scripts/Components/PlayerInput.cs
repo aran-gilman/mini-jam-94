@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -140,6 +141,11 @@ public class PlayerInput : MonoBehaviour
                 itemTilemap.GetComponent<ItemGrid>().PopulateItems(currentTier);
                 recipesUntilRefresh = refreshAfterXRecipes;
                 tierDisplay.SetTier(currentTier);
+
+                if (currentTier + 1 >= tiers.Count)
+                {
+                    SceneManager.LoadScene("EndScene");
+                }
             }
             else
             {
