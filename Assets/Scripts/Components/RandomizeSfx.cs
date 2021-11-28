@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class RandomizeSfx : MonoBehaviour
 {
     public List<AudioClip> clips = new List<AudioClip>();
@@ -22,6 +21,6 @@ public class RandomizeSfx : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
     }
 }

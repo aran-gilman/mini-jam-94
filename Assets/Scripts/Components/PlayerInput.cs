@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
     public Text hintDisplay;
 
     public TileBase selectionIndicator;
-
+    
     public AudioClip recipeSuccessSfx;
     public AudioClip recipeFailSfx;
 
@@ -50,7 +50,7 @@ public class PlayerInput : MonoBehaviour
     {
         recipes = new List<Recipe>(Resources.LoadAll<Recipe>("Recipes"));
         selectSfx = GetComponent<RandomizeSfx>();
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
 
         recipesUntilRefresh = refreshAfterXRecipes;
         tierDisplay.SetTier(0);
