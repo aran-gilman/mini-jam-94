@@ -7,6 +7,7 @@ public class Recipe : ScriptableObject
 {
     public string displayName;
     public int value;
+    public int tier;
 
     [Serializable]
     public class Ingredient

@@ -21,13 +21,20 @@ public class PlayerInput : MonoBehaviour
     public AudioClip recipeSuccessSfx;
     public AudioClip recipeFailSfx;
 
+    public int currentTier;
     public int score;
+
+    public int refreshAfterXRecipes = 5;
+
+    public List<Tier> tiers = new List<Tier>();
 
     private List<Vector3Int> selectedCells = new List<Vector3Int>();
     private List<Recipe> recipes = new List<Recipe>();
 
     private RandomizeSfx selectSfx;
     private AudioSource audioSource;
+
+    private int recipesUntilRefresh;
 
     private bool IsAdjacent(Vector3Int a, Vector3Int b)
     {
@@ -41,6 +48,8 @@ public class PlayerInput : MonoBehaviour
         recipes = new List<Recipe>(Resources.LoadAll<Recipe>("Recipes"));
         selectSfx = GetComponent<RandomizeSfx>();
         audioSource = GetComponent<AudioSource>();
+
+        recipesUntilRefresh = refreshAfterXRecipes;
     }
 
     public Recipe FindMatchingRecipe(List<Recipe.Ingredient> ingredients)
@@ -120,6 +129,23 @@ public class PlayerInput : MonoBehaviour
             }
             indicatorTilemap.ClearAllTiles();
             selectedCells.Clear();
+
+            int nextTier = currentTier + 1;
+            if (nextTier < tiers.Count && tiers[nextTier].IsUnlocked(score, recipes.Where(recipeList.IsRecipeDiscovered).ToList()))
+            {
+                currentTier = nextTier;
+                itemTilemap.GetComponent<ItemGrid>().PopulateItems(currentTier);
+                recipesUntilRefresh = refreshAfterXRecipes;
+            }
+            else
+            {
+                recipesUntilRefresh -= 1;
+                if (recipesUntilRefresh < 1)
+                {
+                    itemTilemap.GetComponent<ItemGrid>().PopulateItems(currentTier);
+                    recipesUntilRefresh = refreshAfterXRecipes;
+                }
+            }
         }
     }
 
@@ -152,7 +178,7 @@ public class PlayerInput : MonoBehaviour
             }
             List<Recipe> recipes = diffs[i];
 
-            Recipe target = recipes.Find(recipe => !recipeList.IsRecipeDiscovered(recipe));
+            Recipe target = recipes.Find(recipe => !recipeList.IsRecipeDiscovered(recipe) && recipe.tier <= currentTier);
             if (target == null)
             {
                 continue;
@@ -193,6 +219,6 @@ public class PlayerInput : MonoBehaviour
 
     private void FixedUpdate()
     {
-        scoreDisplay.text = $"${score}";
+        scoreDisplay.text = $"Score: {score}";
     }
 }

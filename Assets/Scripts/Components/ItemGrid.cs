@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,25 +9,20 @@ public class ItemGrid : MonoBehaviour
     public Vector2Int size;
 
     private List<Item> items = new List<Item>();
-    private List<Item> weightedItems = new List<Item>();
     private Tilemap tilemap;
 
-    private void Start()
+    public void PopulateItems(int tier)
     {
-        tilemap = GetComponent<Tilemap>();
-        items = new List<Item>(Resources.LoadAll<Item>("Items"));
-        foreach (Item item in items)
+        IEnumerable<Item> unlockedItems = items.Where(item => item.tier <= tier);
+        List<Item> weightedItems = new List<Item>();
+        foreach (Item item in unlockedItems)
         {
             for (int i = 0; i < item.weight; i++)
             {
                 weightedItems.Add(item);
             }
         }
-        PopulateItems();
-    }
 
-    private void PopulateItems()
-    {
         for (int x = 0; x < size.x; x++)
         {
             for (int y = 0; y < size.y; y++)
@@ -35,5 +31,12 @@ public class ItemGrid : MonoBehaviour
                 tilemap.SetTile(new Vector3Int(x, y, 0), weightedItems[tileIndex]);
             }
         }
+    }
+
+    private void Start()
+    {
+        tilemap = GetComponent<Tilemap>();
+        items = new List<Item>(Resources.LoadAll<Item>("Items"));
+        PopulateItems(0);
     }
 }
