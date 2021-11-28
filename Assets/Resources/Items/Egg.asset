@@ -15,3 +15,4 @@ MonoBehaviour:
   displayName: Egg
   weight: 2
   sprite: {fileID: 21300000, guid: 4a9d310b2af6fa1439f6345105cddfcd, type: 3}
+  tier: 1

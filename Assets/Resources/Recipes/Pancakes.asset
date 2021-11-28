@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Pancakes
   value: 10
+  tier: 1
   ingredients:
   - item: {fileID: 11400000, guid: 7c33b4b6785ff6248a9c5a0347916a1e, type: 2}
     quantity: 2

@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     public Tilemap itemTilemap;
     public Tilemap indicatorTilemap;
     public RecipeList recipeList;
+    public TierDisplay tierDisplay;
 
     public GameObject lastRecipeDisplay;
     public GameObject ingredientImagePrefab;
@@ -50,6 +51,7 @@ public class PlayerInput : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         recipesUntilRefresh = refreshAfterXRecipes;
+        tierDisplay.SetTier(0);
     }
 
     public Recipe FindMatchingRecipe(List<Recipe.Ingredient> ingredients)
@@ -136,6 +138,7 @@ public class PlayerInput : MonoBehaviour
                 currentTier = nextTier;
                 itemTilemap.GetComponent<ItemGrid>().PopulateItems(currentTier);
                 recipesUntilRefresh = refreshAfterXRecipes;
+                tierDisplay.SetTier(currentTier);
             }
             else
             {
