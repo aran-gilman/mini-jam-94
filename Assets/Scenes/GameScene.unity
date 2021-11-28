@@ -1352,6 +1352,10 @@ MonoBehaviour:
     requiredRecipes:
     - {fileID: 11400000, guid: 5398d53a1c708494d8f2aadc06bd12b3, type: 2}
     - {fileID: 11400000, guid: d82109f4ecb95af43985636dd8165351, type: 2}
+  - requiredScore: 100
+    requiredRecipes:
+    - {fileID: 11400000, guid: 7d94afe08733c064e9f4301a6f5e8caf, type: 2}
+    - {fileID: 11400000, guid: 601bd41d39b88274ab20279a6b6f63b6, type: 2}
 --- !u!82 &1433844908
 AudioSource:
   m_ObjectHideFlags: 0
