@@ -20,9 +20,6 @@ public class PlayerInput : MonoBehaviour
     public Text hintDisplay;
 
     public TileBase selectionIndicator;
-    
-    public AudioClip recipeSuccessSfx;
-    public AudioClip recipeFailSfx;
 
     public int currentTier;
     public int score;
@@ -34,8 +31,7 @@ public class PlayerInput : MonoBehaviour
     private List<Vector3Int> selectedCells = new List<Vector3Int>();
     private List<Recipe> recipes = new List<Recipe>();
 
-    private RandomizeSfx selectSfx;
-    private AudioSource audioSource;
+    private SoundEffectsPlayer soundEffectsPlayer;
 
     private int recipesUntilRefresh;
 
@@ -49,8 +45,7 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         recipes = new List<Recipe>(Resources.LoadAll<Recipe>("Recipes"));
-        selectSfx = GetComponent<RandomizeSfx>();
-        audioSource = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
+        soundEffectsPlayer = GameObject.FindGameObjectWithTag("SoundEffectsPlayer").GetComponent<SoundEffectsPlayer>();
 
         recipesUntilRefresh = refreshAfterXRecipes;
         tierDisplay.SetTier(0);
@@ -86,7 +81,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     indicatorTilemap.SetTile(mouseCell, selectionIndicator);
                     selectedCells.Add(mouseCell);
-                    selectSfx.Play();
+                    soundEffectsPlayer.PlayClick();
                 }
             }
         }
@@ -123,13 +118,13 @@ public class PlayerInput : MonoBehaviour
                 score += recipe.value;
                 recipeList.GetEntryFor(recipe).SetActive(true);
                 hintDisplay.transform.parent.gameObject.SetActive(false);
-                audioSource.PlayOneShot(recipeSuccessSfx);
+                soundEffectsPlayer.PlaySuccess();
             }
             else
             {
                 hintDisplay.text = GetHint(ingredients.Values.ToList());
                 hintDisplay.transform.parent.gameObject.SetActive(hintDisplay.text.Length > 0);
-                audioSource.PlayOneShot(recipeFailSfx);
+                soundEffectsPlayer.PlayFailure();
             }
             indicatorTilemap.ClearAllTiles();
             selectedCells.Clear();

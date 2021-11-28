@@ -1201,7 +1201,6 @@ GameObject:
   - component: {fileID: 1433844906}
   - component: {fileID: 1433844905}
   - component: {fileID: 1433844907}
-  - component: {fileID: 1433844909}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1260,8 +1259,6 @@ MonoBehaviour:
   missingRecipeCountDisplay: {fileID: 2032758362}
   hintDisplay: {fileID: 1052086155}
   selectionIndicator: {fileID: 11400000, guid: 1b6b5b9db02eacf4bacc3e74c65bcfb8, type: 2}
-  recipeSuccessSfx: {fileID: 8300000, guid: 7d499970c1ddcbb47b2417a4f1d597f0, type: 3}
-  recipeFailSfx: {fileID: 8300000, guid: 0ea2eb50a13474d418b37e3b597257a1, type: 3}
   currentTier: 0
   score: 0
   refreshAfterXRecipes: 5
@@ -1282,22 +1279,6 @@ MonoBehaviour:
   - requiredScore: 150
     requiredRecipes:
     - {fileID: 11400000, guid: 7d94afe08733c064e9f4301a6f5e8caf, type: 2}
---- !u!114 &1433844909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1433844904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b619f0dbeb363b244980666e009f0260, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: 7643596aba04efa41833f26263977f97, type: 3}
-  - {fileID: 8300000, guid: eb768c86bb3d87a41861970c5e58a373, type: 3}
-  - {fileID: 8300000, guid: d37f7cfe939c10b43a0914aa2758fa98, type: 3}
 --- !u!1 &1440637009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1845,6 +1826,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7644721954877123250, guid: aceac179c5ee86643a911e9be8bf5703, type: 3}
   spacing: 16
+--- !u!1001 &2512555624050229666
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486909, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512555625139486910, guid: 7b6c5fb19446ded44a329f532d3fb19c,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundEffectsPlayer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7b6c5fb19446ded44a329f532d3fb19c, type: 3}
 --- !u!1001 &7394078394438392837
 PrefabInstance:
   m_ObjectHideFlags: 0
