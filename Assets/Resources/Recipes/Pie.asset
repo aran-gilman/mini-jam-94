@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1114c9c9f1d568d499835858af17d260, type: 3}
-  m_Name: ApplePie
+  m_Name: Pie
   m_EditorClassIdentifier: 
   displayName: Pie
   value: 30
