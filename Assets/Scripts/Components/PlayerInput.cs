@@ -24,7 +24,7 @@ public class PlayerInput : MonoBehaviour
     public int currentTier;
     public int score;
 
-    public int refreshAfterXRecipes = 5;
+    public int refreshAfterXRecipes = 3;
 
     public List<Tier> tiers = new List<Tier>();
 

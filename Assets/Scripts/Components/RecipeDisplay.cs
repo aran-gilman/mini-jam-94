@@ -5,12 +5,19 @@ using UnityEngine.UI;
 public class RecipeDisplay : MonoBehaviour
 {
     public Recipe recipe;
+    public GameObject ingredientPrefab;
+
     public Text nameElement;
-    public Text ingredientElement;
+    public GameObject ingredientContainer;
 
     private void Start()
     {
         nameElement.text = recipe.displayName;
-        ingredientElement.text = string.Join(", ", recipe.ingredients.Select(i => $"{i.quantity}x {i.item.displayName}"));
+        foreach (Recipe.Ingredient ingredient in recipe.ingredients)
+        {
+            GameObject go = Instantiate(ingredientPrefab, ingredientContainer.transform);
+            go.GetComponentInChildren<Text>().text = $"{ingredient.quantity}x";
+            go.GetComponentInChildren<Image>().sprite = ingredient.item.sprite;
+        }
     }
 }
