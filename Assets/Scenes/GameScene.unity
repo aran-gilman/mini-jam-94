@@ -494,8 +494,8 @@ MonoBehaviour:
   m_RefResolutionY: 270
   m_UpscaleRT: 1
   m_PixelSnapping: 0
-  m_CropFrameX: 1
-  m_CropFrameY: 1
+  m_CropFrameX: 0
+  m_CropFrameY: 0
   m_StretchFill: 0
 --- !u!20 &519420031
 Camera:
@@ -1293,7 +1293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b619f0dbeb363b244980666e009f0260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 7394078394438392838}
   clips:
   - {fileID: 8300000, guid: 7643596aba04efa41833f26263977f97, type: 3}
   - {fileID: 8300000, guid: eb768c86bb3d87a41861970c5e58a373, type: 3}
@@ -1914,9 +1913,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81fed0313f323b145b987aa7e3834837, type: 3}
---- !u!82 &7394078394438392838 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 7394078394724528096, guid: 81fed0313f323b145b987aa7e3834837,
-    type: 3}
-  m_PrefabInstance: {fileID: 7394078394438392837}
-  m_PrefabAsset: {fileID: 0}
