@@ -15,4 +15,4 @@ MonoBehaviour:
   displayName: Apple
   weight: 1
   sprite: {fileID: 21300000, guid: 12bdaf98bd55d8a4eaad54a2dfb93e43, type: 3}
-  tier: 2
+  tier: 3
