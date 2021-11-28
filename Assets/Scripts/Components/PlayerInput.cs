@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     public GameObject ingredientImagePrefab;
 
     public Text scoreDisplay;
+    public Text missingRecipeCountDisplay;
     public Text hintDisplay;
 
     public TileBase selectionIndicator;
@@ -226,10 +227,14 @@ public class PlayerInput : MonoBehaviour
         if (nextTier < tiers.Count)
         {
             scoreDisplay.text = $"Score: {score} / {tiers[nextTier].requiredScore}";
+            int missingCount = recipes.Where(r => r.tier <= currentTier && !recipeList.IsRecipeDiscovered(r)).Count();
+            missingRecipeCountDisplay.text = $"Missing: {missingCount}";
+            missingRecipeCountDisplay.gameObject.SetActive(true);
         }
         else
         {
             scoreDisplay.text = $"Score: {score}";
+            missingRecipeCountDisplay.gameObject.SetActive(false);
         }
     }
 }
