@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -115,8 +114,8 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                hintDisplay.transform.parent.gameObject.SetActive(true);
                 hintDisplay.text = GetHint(ingredients.Values.ToList());
+                hintDisplay.transform.parent.gameObject.SetActive(hintDisplay.text.Length > 0);
                 audioSource.PlayOneShot(recipeFailSfx);
             }
             indicatorTilemap.ClearAllTiles();
@@ -144,15 +143,40 @@ public class PlayerInput : MonoBehaviour
             diffs[diff].Add(recipe);
         }
 
-        if (diffs.ContainsKey(0))
+        int maxDiff = diffs.Keys.Max();
+        for (int i = 0; i <= maxDiff; i++)
         {
+            if (!diffs.ContainsKey(i))
+            {
+                continue;
+            }
+            List<Recipe> recipes = diffs[i];
+
+            Recipe target = recipes.Find(recipe => !recipeList.IsRecipeDiscovered(recipe));
+            if (target == null)
+            {
+                continue;
+            }
+
             foreach (Recipe.Ingredient ingredient in ingredients)
             {
-                Recipe.Ingredient recipeIngredient = diffs[0][0].ingredients.Find(r => r.item == ingredient.item);
-                if (recipeIngredient == null)
+                if (!target.ingredients.Exists(recipeIngredient => recipeIngredient.item == ingredient.item))
                 {
                     return $"Try removing {ingredient.item.displayName}";
                 }
+            }
+
+            foreach (Recipe.Ingredient recipeIngredient in target.ingredients)
+            {
+                if (!ingredients.Exists(ingredient => ingredient.item == recipeIngredient.item))
+                {
+                    return $"Try adding {recipeIngredient.item.displayName}";
+                }
+            }
+
+            foreach (Recipe.Ingredient ingredient in ingredients)
+            {
+                Recipe.Ingredient recipeIngredient = target.ingredients.Find(r => r.item == ingredient.item);
                 if (ingredient.quantity > recipeIngredient.quantity)
                 {
                     return $"Too much {ingredient.item.displayName}";
@@ -162,20 +186,9 @@ public class PlayerInput : MonoBehaviour
                     return $"Not enough {ingredient.item.displayName}";
                 }
             }
+
         }
-        else
-        {
-            int smallestDiff = diffs.Keys.Min();
-            Recipe nearestRecipe = diffs[smallestDiff][0];
-            foreach (Recipe.Ingredient recipeIngredient in nearestRecipe.ingredients)
-            {
-                if (!ingredients.Exists(ingredient => ingredient.item == recipeIngredient.item))
-                {
-                    return $"Try adding {recipeIngredient.item.displayName}";
-                }
-            }
-        }
-        return "No available hints";
+        return "";
     }
 
     private void FixedUpdate()

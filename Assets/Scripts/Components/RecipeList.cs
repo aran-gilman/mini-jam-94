@@ -6,6 +6,15 @@ public class RecipeList : MonoBehaviour
     public GameObject prefab;
     public int spacing;
 
+    public bool IsRecipeDiscovered(Recipe recipe)
+    {
+        if (!recipeListEntries.ContainsKey(recipe))
+        {
+            return false;
+        }
+        return recipeListEntries[recipe].activeSelf;
+    }
+
     public GameObject GetEntryFor(Recipe recipe)
     {
         if (recipeListEntries.ContainsKey(recipe))
