@@ -222,6 +222,14 @@ public class PlayerInput : MonoBehaviour
 
     private void FixedUpdate()
     {
-        scoreDisplay.text = $"Score: {score}";
+        int nextTier = currentTier + 1;
+        if (nextTier < tiers.Count)
+        {
+            scoreDisplay.text = $"Score: {score} / {tiers[nextTier].requiredScore}";
+        }
+        else
+        {
+            scoreDisplay.text = $"Score: {score}";
+        }
     }
 }
