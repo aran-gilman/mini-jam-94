@@ -1260,7 +1260,7 @@ MonoBehaviour:
   missingRecipeCountDisplay: {fileID: 2032758362}
   hintDisplay: {fileID: 1052086155}
   selectionIndicator: {fileID: 11400000, guid: 1b6b5b9db02eacf4bacc3e74c65bcfb8, type: 2}
-  recipeSuccessSfx: {fileID: 8300000, guid: fcdd468d5882ce14abe402f31584c040, type: 3}
+  recipeSuccessSfx: {fileID: 8300000, guid: 7d499970c1ddcbb47b2417a4f1d597f0, type: 3}
   recipeFailSfx: {fileID: 8300000, guid: 0ea2eb50a13474d418b37e3b597257a1, type: 3}
   currentTier: 0
   score: 0
