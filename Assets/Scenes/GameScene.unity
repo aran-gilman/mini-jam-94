@@ -1278,6 +1278,7 @@ MonoBehaviour:
   - requiredScore: 100
     requiredRecipes:
     - {fileID: 11400000, guid: 601bd41d39b88274ab20279a6b6f63b6, type: 2}
+    - {fileID: 11400000, guid: 9ffca1dfa1ed7f849980ff0f99917a91, type: 2}
   - requiredScore: 150
     requiredRecipes:
     - {fileID: 11400000, guid: 7d94afe08733c064e9f4301a6f5e8caf, type: 2}
